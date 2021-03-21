@@ -1,6 +1,8 @@
 package com.hayohtee.notekeeper.model
 
-class NoteViewModel {
+import androidx.lifecycle.ViewModel
+
+class NoteViewModel: ViewModel() {
     private val notes = mutableListOf<Note>()
 
     fun getNotes(): List<Note>{
