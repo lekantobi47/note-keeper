@@ -5,17 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.hayohtee.notekeeper.model.NoteViewModel
 
-class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(private  val noteViewModel: NoteViewModel):
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val position = view.findViewById(R.id.text_position) as TextView
+        val title = view.findViewById(R.id.text_title) as TextView
         val content = view.findViewById(R.id.text_content) as TextView
     }
-
-    // dummy list
-    private val names = arrayOf("James", "John", "Caleb", "Sarah")
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_view,
@@ -25,10 +24,11 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.position.text = (position + 1).toString()
-        holder.content.text = names[position]
+        val notes = noteViewModel.getNotes()
+        holder.title.text = notes[position].title
+        holder.content.text = notes[position].content
     }
 
-    override fun getItemCount() = names.size
+    override fun getItemCount() = noteViewModel.getNotes().size
 
 }
